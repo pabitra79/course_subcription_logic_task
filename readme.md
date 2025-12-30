@@ -128,9 +128,9 @@ The application will start on http://localhost:3000
 👤 Dummy User Credentials
 The application automatically creates 3 dummy users on startup:
 
-Email: user1@test.com | Password: password123
-Email: user2@test.com | Password: password123
-Email: user3@test.com | Password: password123
+Email: user1@test.com |......
+Email: user2@test.com | ...........
+Email: user3@test.com | Password:...........
 🎟️ Promo Code
 Use promo code BFSALE25 to get 50% discount on any paid course!
 
@@ -251,3 +251,4 @@ Contributing
 This is an internship project. For any issues or suggestions, please create an issue in the repository.
 
 Built with using Node.js, Express, TypeScript, MongoDB, and EJS
+
