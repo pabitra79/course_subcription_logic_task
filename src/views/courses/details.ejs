@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= course.title %> - Course Platform</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: #f5f5f5;
+      }
+
+      .navbar {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 15px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .navbar h1 {
+        font-size: 24px;
+      }
+
+      .navbar nav a {
+        color: white;
+        text-decoration: none;
+        margin-left: 20px;
+        font-weight: 500;
+        transition: opacity 0.3s;
+      }
+
+      .navbar nav a:hover {
+        opacity: 0.8;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 40px auto;
+        padding: 0 20px;
+      }
+
+      .course-detail {
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .course-image {
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+      }
+
+      .course-info {
+        padding: 40px;
+      }
+
+      .course-title {
+        font-size: 32px;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      .course-description {
+        font-size: 16px;
+        color: #666;
+        line-height: 1.8;
+        margin-bottom: 30px;
+      }
+
+      .price-section {
+        background: #f9f9f9;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+      }
+
+      .price {
+        font-size: 36px;
+        font-weight: bold;
+        color: #667eea;
+      }
+
+      .free {
+        color: #27ae60;
+      }
+
+      .original-price {
+        text-decoration: line-through;
+        color: #999;
+        font-size: 24px;
+        margin-right: 10px;
+      }
+
+      .promo-section {
+        margin-top: 20px;
+      }
+
+      .promo-label {
+        color: #666;
+        margin-bottom: 10px;
+        font-size: 14px;
+      }
+
+      .promo-input {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .promo-input input {
+        flex: 1;
+        padding: 12px;
+        border: 2px solid #e0e0e0;
+        border-radius: 6px;
+        font-size: 14px;
+      }
+
+      .promo-input input:focus {
+        outline: none;
+        border-color: #667eea;
+      }
+
+      .promo-input button {
+        padding: 12px 24px;
+        background: #667eea;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background 0.3s;
+      }
+
+      .promo-input button:hover {
+        background: #5568d3;
+      }
+
+      #promoMessage {
+        margin-top: 10px;
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      .btn {
+        padding: 16px 40px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 18px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .btn:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .enrolled-badge {
+        background: #27ae60;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        display: inline-block;
+      }
+
+      .message {
+        padding: 12px;
+        border-radius: 6px;
+        margin-bottom: 20px;
+      }
+
+      .success {
+        background: #d4edda;
+        color: #155724;
+        border-left: 4px solid #28a745;
+      }
+
+      .error {
+        background: #f8d7da;
+        color: #721c24;
+        border-left: 4px solid #dc3545;
+      }
+
+      @media (max-width: 768px) {
+        .navbar {
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .navbar nav {
+          display: flex;
+          gap: 15px;
+        }
+
+        .course-image {
+          height: 250px;
+        }
+
+        .course-info {
+          padding: 20px;
+        }
+
+        .course-title {
+          font-size: 24px;
+        }
+
+        .price {
+          font-size: 28px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navbar">
+      <h1>🎓 Course Platform</h1>
+      <nav>
+        <a href="/courses">All Courses</a>
+        <a href="/my-courses">My Courses</a>
+        <a href="/auth/logout">Logout</a>
+      </nav>
+    </div>
+
+    <div class="container">
+      <div class="course-detail">
+        <img
+          class="course-image"
+          src="<%= course.image || 'https://via.placeholder.com/900x400' %>"
+          alt="<%= course.title %>"
+        />
+
+        <div class="course-info">
+          <h1 class="course-title"><%= course.title %></h1>
+          <p class="course-description"><%= course.description %></p>
+
+          <% if (!isSubscribed) { %>
+          <div class="price-section">
+            <div
+              class="price <%= course.price === 0 ? 'free' : '' %>"
+              id="displayPrice"
+            >
+              <%= course.price === 0 ? 'FREE' : '$' + course.price %>
+            </div>
+
+            <% if (course.price > 0) { %>
+            <div class="promo-section">
+              <p class="promo-label">Have a promo code?</p>
+              <div class="promo-input">
+                <input
+                  type="text"
+                  id="promoCode"
+                  placeholder="Enter promo code (BFSALE25)"
+                />
+                <button onclick="applyPromo()">Apply</button>
+              </div>
+              <p id="promoMessage"></p>
+            </div>
+            <% } %>
+          </div>
+
+          <div id="messageContainer"></div>
+
+          <button class="btn" id="subscribeBtn" onclick="subscribe()">
+            <%= course.price === 0 ? 'Enroll Now (Free)' : 'Subscribe Now' %>
+          </button>
+          <% } else { %>
+          <span class="enrolled-badge">✓ You're Enrolled in this Course!</span>
+          <% } %>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let appliedPromo = "";
+      const originalPrice = Number("<%= course.price %>");
+
+      function applyPromo() {
+        const promoCode = document
+          .getElementById("promoCode")
+          .value.trim()
+          .toUpperCase();
+        const promoMessage = document.getElementById("promoMessage");
+        const displayPrice = document.getElementById("displayPrice");
+
+        if (promoCode === "BFSALE25") {
+          const discountedPrice = (originalPrice * 0.5).toFixed(2);
+          displayPrice.innerHTML = `<span class="original-price">$${originalPrice}</span> $${discountedPrice}`;
+          promoMessage.style.color = "#27ae60";
+          promoMessage.textContent = "✓ Promo code applied! 50% discount";
+          appliedPromo = promoCode;
+        } else {
+          promoMessage.style.color = "#dc3545";
+          promoMessage.textContent = "✗ Invalid promo code";
+          displayPrice.textContent = "$" + originalPrice;
+          appliedPromo = "";
+        }
+      }
+
+      async function subscribe() {
+        const btn = document.getElementById("subscribeBtn");
+        const messageContainer = document.getElementById("messageContainer");
+
+        btn.disabled = true;
+        btn.textContent = "Processing...";
+
+        try {
+          const response = await fetch("/api/subscriptions/subscribe", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              courseId: "<%= course._id %>",
+              promoCode: appliedPromo,
+            }),
+          });
+
+          const data = await response.json();
+
+          if (data.success) {
+            messageContainer.innerHTML = `<div class="message success">${data.message}</div>`;
+            setTimeout(() => {
+              window.location.href = "/my-courses";
+            }, 2000);
+          } else {
+            messageContainer.innerHTML = `<div class="message error">${data.message}</div>`;
+            btn.disabled = false;
+            btn.textContent =
+              originalPrice === 0 ? "Enroll Now (Free)" : "Subscribe Now";
+          }
+        } catch (err) {
+          messageContainer.innerHTML = `<div class="message error">An error occurred. Please try again.</div>`;
+          btn.disabled = false;
+          btn.textContent =
+            originalPrice === 0 ? "Enroll Now (Free)" : "Subscribe Now";
+        }
+      }
+    </script>
+  </body>
+</html>

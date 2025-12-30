@@ -1,0 +1,145 @@
+<!-- views/my-courses.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Courses - Course Platform</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f5f5; }
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .navbar h1 { font-size: 24px; }
+        .navbar nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+        .navbar nav a:hover { opacity: 0.8; }
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .empty-state h2 { color: #666; margin-bottom: 20px; }
+        .empty-state a {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+        .courses-list {
+            display: grid;
+            gap: 20px;
+        }
+        .course-item {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: flex;
+            transition: transform 0.3s;
+        }
+        .course-item:hover { transform: translateY(-3px); }
+        .course-item img {
+            width: 250px;
+            height: 150px;
+            object-fit: cover;
+        }
+        .course-details {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .course-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .course-meta {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        @media (max-width: 768px) {
+            .course-item {
+                flex-direction: column;
+            }
+            .course-item img {
+                width: 100%;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>🎓 Course Platform</h1>
+        <nav>
+            <a href="/courses">All Courses</a>
+            <a href="/my-courses">My Courses</a>
+            <a href="/auth/logout">Logout</a>
+        </nav>
+    </div>
+    
+    <div class="container">
+        <h2 style="margin-bottom: 30px; color: #333;">My Enrolled Courses</h2>
+        
+        <% if (subscriptions.length === 0) { %>
+            <div class="empty-state">
+                <h2>📚 No courses enrolled yet</h2>
+                <p style="color: #999;">Start learning by enrolling in our amazing courses!</p>
+                <a href="/courses">Browse Courses</a>
+            </div>
+        <% } else { %>
+            <div class="courses-list">
+                <% subscriptions.forEach(sub => { %>
+                    <div class="course-item">
+                        <img src="<%= sub.courseId.image || 'https://via.placeholder.com/250x150' %>" alt="<%= sub.courseId.title %>">
+                        <div class="course-details">
+                            <div>
+                                <h3 class="course-title"><%= sub.courseId.title %></h3>
+                                <p style="color: #666; margin-bottom: 15px;"><%= sub.courseId.description %></p>
+                            </div>
+                            <div class="course-meta">
+                                <span class="meta-item">
+                                    💰 <strong>Paid:</strong> <%= sub.pricePaid === 0 ? 'Free' : '$' + sub.pricePaid %>
+                                </span>
+                                <span class="meta-item">
+                                    📅 <strong>Enrolled:</strong> <%= new Date(sub.subscribedAt).toLocaleDateString() %>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        <% } %>
+    </div>
+</body>
+</html>
