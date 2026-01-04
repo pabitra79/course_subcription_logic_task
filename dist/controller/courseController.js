@@ -8,7 +8,6 @@ class CourseController {
         try {
             const courses = await courseService_1.CourseService.getAllCourses();
             const userId = req.user?.id;
-            // Check which courses user is subscribed to
             const subscriptionChecks = await Promise.all(courses.map(async (course) => ({
                 ...course.toObject(),
                 isSubscribed: userId ? await subscriptionService_1.SubscriptionService.isUserSubscribed(userId, course._id.toString()) : false
