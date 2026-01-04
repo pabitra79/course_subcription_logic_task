@@ -9,8 +9,6 @@ export class CourseController {
     try {
       const courses = await CourseService.getAllCourses();
       const userId = req.user?.id;
-
-      // Check which courses user is subscribed to
       const subscriptionChecks = await Promise.all(
         courses.map(async (course) => ({
           ...course.toObject(),

@@ -15,10 +15,7 @@ export class CourseService {
   }
 
   static async initializeMockCourses(): Promise<void> {
-    const count = await Course.countDocuments();
-    if (count !== 0) return;
-
-    await Course.insertMany([
+    const courses: Partial<ICourse>[] = [
       {
         title: 'Complete Web Development Bootcamp',
         description: 'Learn HTML, CSS, JavaScript, React, Node.js and more.',
@@ -36,7 +33,28 @@ export class CourseService {
         description: 'Free course covering programming basics.',
         price: 0,
         image: 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=400'
+      },
+      {
+        title: 'Introduction to Javascript',
+        description: 'Course covering JavaScript basics.',
+        price: 39,
+        image: 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=400'
+      },
+      {
+        title: 'Introduction to Nodejs',
+        description: 'Full course Backend Development.',
+        price: 49,
+        image: 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=400'
       }
-    ]);
+    ];
+
+    for (const course of courses) {
+      const exists = await Course.findOne({ title: course.title });
+      if (!exists) {
+        await Course.create(course);
+      }
+    }
+
+    console.log('✅ Courses synced');
   }
 }

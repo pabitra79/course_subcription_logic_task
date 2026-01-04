@@ -59,7 +59,7 @@ app.use((0, cookie_parser_1.default)());
 app.use(express_1.default.static(path_1.default.join(__dirname, '../public')));
 // View engine setup
 app.set('view engine', 'ejs');
-app.set('views', path_1.default.join(__dirname, 'views'));
+app.set('views', path_1.default.join(__dirname, '../views'));
 // Routes
 app.get('/', (req, res) => {
     res.redirect('/auth/login');

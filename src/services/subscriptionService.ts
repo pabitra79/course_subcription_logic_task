@@ -39,8 +39,8 @@ export class SubscriptionService {
 
   static async getUserSubscriptions(userId: string) {
     return Subscription.find({ userId })
-      .populate('courseId')
-      .sort({ subscribedAt: -1 });
+  .populate('courseId')
+  .sort({ subscribedAt: -1 });
   }
 
   static async isUserSubscribed(
