@@ -72,3 +72,4 @@ userSchema.methods.comparePassword = function (candidatePassword) {
     return bcryptjs_1.default.compare(candidatePassword, this.password);
 };
 exports.User = mongoose_1.default.model('User', userSchema);
+//# sourceMappingURL=User.js.map

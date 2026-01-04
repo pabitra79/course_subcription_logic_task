@@ -8,3 +8,4 @@ const router = (0, express_1.Router)();
 router.get('/', authMiddleware_1.protect, courseController_1.CourseController.getAllCourses);
 router.get('/:id', authMiddleware_1.protect, courseController_1.CourseController.getCourseDetail);
 exports.default = router;
+//# sourceMappingURL=courseRoutes.js.map

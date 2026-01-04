@@ -37,3 +37,4 @@ class SubscriptionService {
 exports.SubscriptionService = SubscriptionService;
 SubscriptionService.VALID_PROMO_CODE = 'BFSALE25';
 SubscriptionService.PROMO_DISCOUNT = 0.5;
+//# sourceMappingURL=subscriptionService.js.map

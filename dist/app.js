@@ -111,3 +111,4 @@ async function createDummyUsers() {
     console.log(' Dummy users initialized');
 }
 startServer();
+//# sourceMappingURL=app.js.map

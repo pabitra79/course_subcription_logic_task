@@ -44,3 +44,4 @@ class CourseController {
     }
 }
 exports.CourseController = CourseController;
+//# sourceMappingURL=courseController.js.map

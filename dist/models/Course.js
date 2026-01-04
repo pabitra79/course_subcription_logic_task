@@ -59,3 +59,4 @@ const courseSchema = new mongoose_1.Schema({
     }
 });
 exports.Course = mongoose_1.default.model('Course', courseSchema);
+//# sourceMappingURL=Course.js.map

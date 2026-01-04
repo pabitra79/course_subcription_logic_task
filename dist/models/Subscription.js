@@ -58,3 +58,4 @@ const subscriptionSchema = new mongoose_1.Schema({
 // prevent duplicate subscription for same user & course
 subscriptionSchema.index({ userId: 1, courseId: 1 }, { unique: true });
 exports.Subscription = mongoose_1.default.model('Subscription', subscriptionSchema);
+//# sourceMappingURL=Subscription.js.map

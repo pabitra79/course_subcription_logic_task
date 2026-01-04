@@ -29,3 +29,4 @@ class SubscriptionController {
     }
 }
 exports.SubscriptionController = SubscriptionController;
+//# sourceMappingURL=subscriptionController.js.map

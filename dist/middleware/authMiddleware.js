@@ -51,3 +51,4 @@ const protectAPI = (req, res, next) => {
     }
 };
 exports.protectAPI = protectAPI;
+//# sourceMappingURL=authMiddleware.js.map

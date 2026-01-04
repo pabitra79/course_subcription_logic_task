@@ -10,3 +10,4 @@ router.get('/login', authController_1.AuthController.renderLogin);
 router.post('/login', authController_1.AuthController.login);
 router.get('/logout', authController_1.AuthController.logout);
 exports.default = router;
+//# sourceMappingURL=authRoutes.js.map
