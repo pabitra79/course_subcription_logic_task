@@ -5,9 +5,9 @@
   "main": "dist/app.js",
   "scripts": {
   "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
-  "build": "tsc && cp -r src/views dist/",
+  "build": "npx tsc && cp -r src/views dist/",
   "start": "node dist/app.js"
-  },
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
