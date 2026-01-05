@@ -59,7 +59,12 @@ app.use((0, cookie_parser_1.default)());
 app.use(express_1.default.static(path_1.default.join(__dirname, '../public')));
 // View engine setup
 app.set('view engine', 'ejs');
+// FIX: Set views path correctly for both dev and production
+// In development: __dirname is 'src', so we go to 'src/views'
+// In production: __dirname is 'dist', so we go to 'dist/views' 
 app.set('views', path_1.default.join(__dirname, 'views'));
+console.log('📁 __dirname:', __dirname);
+console.log('📁 Views path:', path_1.default.join(__dirname, 'views'));
 // Routes
 app.get('/', (req, res) => {
     res.redirect('/auth/login');
@@ -108,7 +113,7 @@ async function createDummyUsers() {
             await User.create(userData);
         }
     }
-    console.log(' Dummy users initialized');
+    console.log('✅ Dummy users initialized');
 }
 startServer();
 //# sourceMappingURL=app.js.map

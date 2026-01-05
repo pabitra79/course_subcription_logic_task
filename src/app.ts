@@ -26,9 +26,14 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 // View engine setup
 app.set('view engine', 'ejs');
+
+// FIX: Set views path correctly for both dev and production
+// In development: __dirname is 'src', so we go to 'src/views'
+// In production: __dirname is 'dist', so we go to 'dist/views' 
 app.set('views', path.join(__dirname, 'views'));
 
-
+console.log('📁 __dirname:', __dirname);
+console.log('📁 Views path:', path.join(__dirname, 'views'));
 
 // Routes
 app.get('/', (req: Request, res: Response) => {
@@ -86,7 +91,7 @@ async function createDummyUsers() {
     }
   }
   
-  console.log(' Dummy users initialized');
+  console.log('✅ Dummy users initialized');
 }
 
 startServer();
