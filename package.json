@@ -5,14 +5,11 @@
   "main": "dist/app.js",
   "scripts": {
     "dev": "nodemon src/app.ts",
-    "build": "npm run clean && tsc && npm run copy-views && npm run copy-public",
-    "copy-views": "copyfiles -u 1 \"src/views/**/*\" dist/",
-    "copy-public": "copyfiles -u 1 \"public/**/*\" dist/",
-    "clean": "if exist dist rmdir /s /q dist",
-    "start": "node dist/app.js",
-    "build:windows": "tsc && xcopy /E /I /Y src\\views dist\\views && xcopy /E /I /Y public dist\\public",
-    "build:linux": "tsc && cp -r src/views dist/views"
-
+    "build": "tsc && node -e \"const fs=require('fs'); if(fs.existsSync('src/views')) fs.cpSync('src/views','dist/views',{recursive:true})\"",
+    "start": "node dist/app.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   },
   "keywords": ["course", "subscription", "jwt", "express"],
   "author": "",
@@ -25,7 +22,8 @@
     "ejs": "^3.1.9",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.0.0"
+    "mongoose": "^8.0.0",
+    "typescript": "^5.3.2"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
@@ -33,9 +31,7 @@
     "@types/express": "^4.17.20",
     "@types/jsonwebtoken": "^9.0.5",
     "@types/node": "^20.9.0",
-    "copyfiles": "^2.4.1",
     "nodemon": "^3.0.1",
-    "ts-node": "^10.9.1",
-    "typescript": "^5.3.2"
+    "ts-node": "^10.9.1"
   }
 }
