@@ -10,7 +10,9 @@
     "copy-public": "copyfiles -u 1 \"public/**/*\" dist/",
     "clean": "if exist dist rmdir /s /q dist",
     "start": "node dist/app.js",
-    "build:windows": "tsc && xcopy /E /I /Y src\\views dist\\views && xcopy /E /I /Y public dist\\public"
+    "build:windows": "tsc && xcopy /E /I /Y src\\views dist\\views && xcopy /E /I /Y public dist\\public",
+    "build:linux": "tsc && cp -r src/views dist/views"
+
   },
   "keywords": ["course", "subscription", "jwt", "express"],
   "author": "",
