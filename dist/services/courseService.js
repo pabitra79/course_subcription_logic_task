@@ -36,13 +36,13 @@ class CourseService {
                 title: 'Introduction to Javascript',
                 description: 'Course covering JavaScript basics.',
                 price: 39,
-                image: 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=400'
+                image: 'https://images.unsplash.com/photo-1667372393086-9d4001d51cf1?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
             },
             {
                 title: 'Introduction to Nodejs',
                 description: 'Full course Backend Development.',
                 price: 49,
-                image: 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=400'
+                image: 'https://plus.unsplash.com/premium_photo-1669075651892-ad3b64f2145c?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
             }
         ];
         for (const course of courses) {
@@ -51,7 +51,7 @@ class CourseService {
                 await Course_1.Course.create(course);
             }
         }
-        console.log('✅ Courses synced');
+        console.log(' Courses synced');
     }
 }
 exports.CourseService = CourseService;

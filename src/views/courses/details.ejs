@@ -293,27 +293,34 @@
 
     <script>
       let appliedPromo = "";
-      const originalPrice = Number("<%= course.price %>");
+      const originalPrice = parseFloat("<%= course.price %>");
+      const courseId = "<%= course._id %>";
+
+      console.log("Course ID:", courseId);
+      console.log("Original Price:", originalPrice);
 
       function applyPromo() {
-        const promoCode = document
-          .getElementById("promoCode")
-          .value.trim()
-          .toUpperCase();
+        const promoInput = document.getElementById("promoCode");
+        const promoCode = promoInput.value.trim().toUpperCase();
         const promoMessage = document.getElementById("promoMessage");
         const displayPrice = document.getElementById("displayPrice");
 
+        console.log("Applying promo code:", promoCode);
+
         if (promoCode === "BFSALE25") {
           const discountedPrice = (originalPrice * 0.5).toFixed(2);
-          displayPrice.innerHTML = `<span class="original-price">$${originalPrice}</span> $${discountedPrice}`;
+          displayPrice.innerHTML = 
+            '<span class="original-price">$' + originalPrice + '</span> $' + discountedPrice;
           promoMessage.style.color = "#27ae60";
           promoMessage.textContent = "✓ Promo code applied! 50% discount";
           appliedPromo = promoCode;
+          console.log("✅ Promo code accepted:", appliedPromo);
         } else {
           promoMessage.style.color = "#dc3545";
           promoMessage.textContent = "✗ Invalid promo code";
           displayPrice.textContent = "$" + originalPrice;
           appliedPromo = "";
+          console.log("❌ Invalid promo code");
         }
       }
 
@@ -324,33 +331,49 @@
         btn.disabled = true;
         btn.textContent = "Processing...";
 
+        const payload = {
+          courseId: courseId,
+          promoCode: appliedPromo || undefined
+        };
+
+        console.log("=== Sending subscription request ===");
+        console.log("Payload:", JSON.stringify(payload, null, 2));
+
         try {
           const response = await fetch("/api/subscriptions/subscribe", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({
-              courseId: "<%= course._id %>",
-              promoCode: appliedPromo,
-            }),
+            body: JSON.stringify(payload),
           });
 
+          console.log("Response status:", response.status);
           const data = await response.json();
+          console.log("Response data:", data);
 
           if (data.success) {
-            messageContainer.innerHTML = `<div class="message success">${data.message}</div>`;
-            setTimeout(() => {
+            messageContainer.innerHTML = 
+              '<div class="message success">' + data.message + '</div>';
+            console.log("✅ Subscription successful!");
+            if (data.data && data.data.pricePaid !== undefined) {
+              console.log("Price paid:", data.data.pricePaid);
+            }
+            setTimeout(function() {
               window.location.href = "/my-courses";
             }, 2000);
           } else {
-            messageContainer.innerHTML = `<div class="message error">${data.message}</div>`;
+            messageContainer.innerHTML = 
+              '<div class="message error">' + data.message + '</div>';
             btn.disabled = false;
             btn.textContent =
               originalPrice === 0 ? "Enroll Now (Free)" : "Subscribe Now";
+            console.log("❌ Subscription failed:", data.message);
           }
         } catch (err) {
-          messageContainer.innerHTML = `<div class="message error">An error occurred. Please try again.</div>`;
+          console.error("Error during subscription:", err);
+          messageContainer.innerHTML = 
+            '<div class="message error">An error occurred. Please try again.</div>';
           btn.disabled = false;
           btn.textContent =
             originalPrice === 0 ? "Enroll Now (Free)" : "Subscribe Now";
